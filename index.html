@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<style>
+    *{
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+        color: aliceblue;
+    
+    }
+    html,body{
+        height: 100%;
+        width: 100%;
+    }
+    body{
+        overflow-x: hidden;
+    }
+    #loader{
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        background-color: black;
+        z-index: 99;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        gap: 10px;
+        font-size: 5vw;
+    }
+    #mouse-cur{
+        height: 7.5vw;
+        width: 7.5vw;
+        background-color: black;
+        border-radius: 50%;
+        position: fixed;
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translate(-50%,-50%) scale(0);
+    }
+    #mouse-cur h5{
+        font-size: 1.2vw;
+        font-weight: 100;
+        color: #ffffff;
+    }
+    .reel{
+        height: 100vh;
+        width: 100%;
+        background-color: #dadada;
+        position: relative;
+    }
+    .reel .video iframe{
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        position: absolute;
+       
+    }
+    .reel-con{
+        height: 100%;
+        width: 100%;
+      
+       position: relative;
+       z-index: 10;
+       color: #fff;
+       display: flex;
+       align-items: center;
+       flex-direction: column;
+       justify-content: space-between;
+       /* padding-bottom: 5vw; */
+    }
+    nav{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 3vw 3vw;
+    }
+    nav img{
+        font-size: 3vw;
+        font-weight: 100;
+        letter-spacing: 1.5px;
+        color: black;
+    }
+    nav h3{
+        font-size: 1.6vw;
+        font-weight: 100;
+        color: black;
+    }
+    .reel-con h1{
+        /* font-family: "Roboto"; */
+        font-size: 25vw;
+        letter-spacing: 0.8vw;
+        font-weight: 300;
+        line-height: 27vw;
+        color: #0d0dc0;
+        
+    }
+    .reel-con h1 span{
+        display: inline-block;
+    }
+    .cursor{
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        position: fixed;
+        background-color: blanchedalmond;
+        z-index: 8;
+        transition: background-image ease 0.5s;
+        background-position: center;
+        background-size:cover ;
+        mix-blend-mode: difference;
+       
+    }
+    
+    
+    .slider{
+        background-color: #FDFAF5;
+        overflow-x: hidden;
+        height: 100vh;
+        width: 100%;
+        padding: 4vw 0;
+        position: relative;
+        
+    }
+    .slider h1{
+        font-size: 7vw;
+        font-weight: 200;
+        border-bottom: 2px solid #eae4e4;
+        width: 96%;
+        margin-left: 2%;
+        color: black;
+        font-weight: 400;
+    }
+    .swiperclass{
+        height: 66vh;
+        width: 100%;
+       margin-top: -1.5%;
+        position: relative;
+    }
+    .swiper {
+        width: 140%;
+        height: 100%;
+      }
+    
+      .swiper-slide {
+       
+        text-align: center;
+        font-size: 18px;
+       
+        display: flex;
+        justify-content: space-evenly;
+        align-items: flex-end;
+      }
+    
+      .swiper-slide img {
+        display: block;
+        width: 19%;
+      
+        object-fit: cover;
+      }
+      
+    
+    
+      
+    .page2 h1{
+        text-transform: uppercase;
+        font-size: 34vw;
+        
+        font-weight: 600;
+     }
+     .page2{
+         height: 100%;
+         width:100%;
+         background-color: #f9f9f9(8, 198, 246, 0.913);
+         padding: 5vw;
+         
+     }
+    .main{
+        background-color: #FDFAF5;
+        cursor: none;
+        border-bottom: 2px solid #dadada;
+        
+      
+    }
+    .page5{
+        min-height: 100vh;
+        width: 100%;
+        
+        position: relative;
+        z-index: 9;
+        padding: 140px 100px ;
+    }
+    .page5 h2{
+        color: #0F0D0D;
+        font-size: 4vw;
+        text-transform: uppercase;
+        font-weight: 400;
+        margin-bottom: 50px;
+    
+    }
+    .page5 h3{
+        font-size: 1.5vw;
+        font-weight: 300;
+        color: #0F0D0D;
+    }
+    .box{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100px;
+        padding: 0 20px;
+        border-top: 2px solid #dadada;
+    }
+    .box h4{
+        font-size: 1.5vw;
+        font-weight: 300;
+        color: #0F0D0D;
+    }
+    .box:nth-last-child(1){
+        border-bottom:2px solid #dadada ;
+    }
+    
+    
+    
+    .products{
+        min-height: 120vh;
+        width: 100%;
+        background-color: #FDFAF5;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+    }
+    .child{
+        height: 55vh;
+        width: 38vw;
+        position: relative;
+        display: flex;
+        object-fit: cover;
+        object-position: center;
+        margin-bottom: 30px;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        
+    }
+    .child .img1,.img2{
+        object-fit: cover;
+    }
+    .child .img1 img{
+        height: 54vh;
+    }
+    .child .img2 img{
+       
+        height: 54vh;
+        width: 99.5%
+    }
+    .cc{
+        height: 150px;
+        width: 150px;
+        border-radius: 50%;
+        background-color: blanchedalmond;
+        position: fixed;
+        transform: translate(-50%,50%) scale(0);
+        z-index: 99;
+    
+    }
+    
+    
+    
+    
+    .page{
+        height: 100vh;
+        width: 100%;
+        background-color: blanchedalmond;
+        position: relative;
+    }
+    .footer{
+        height: 100vh;
+        /* display: flex; */
+        background-color: black;
+    }
+    .footer h1{
+        color: white;
+    }
+    .boxes{
+        
+        height: 5vw;
+        width: 100%;
+        border-bottom: .0625rem solid rgba(255, 255, 255, .101961);
+        display: flex;
+        align-items: center;
+        padding: 0 2vw;
+        margin-bottom: 1vw;
+        text-transform: capitalize;
+       
+        
+    }
+    .boxes:nth-last-child(1){
+        border-top: .0625rem solid rgba(255, 255, 255, .101961);
+    }
+    .boxes h3{
+        color: white;
+        font-size: 3vw;
+        font-weight: 100;
+        opacity: 1;
+        scale: 1;
+    }
+    .footer{
+        border-top: .0625rem solid rgba(255, 255, 255, .101961);
+      
+        top:100%;
+        background-color: #0F0D0D;
+       margin-bottom: -120px;
+        width: 100%;
+        scale: 1;
+    }
+    .footer h1{
+    
+        color: white;
+        font-size: 20vw;
+        text-transform: uppercase;
+        letter-spacing: 1.3px;
+        margin-left: 20vw;
+         
+    }
+    .footer h1 span{
+        display: inline-block;
+        opacity: 1;
+       
+    }
+    
+    
+    
+    
+    
+    
+    
+</style>
+<body>
+    <div id="loader">
+        <h3>Wear</h3>
+        <h3>Your</h3>
+        <h3>Brand "</h3>
+    </div>
+    
+    <div class="wrapper">
+        <div id="mouse-cur">
+            <h5>Play Reel</h5>
+        </div>
+        <div class="reel">
+        <div class="video">
+            <iframe src="https://www.youtube.com/embed/twJv6SkdzAc?autoplay=1&mute=1&controls=0&loop=1&playlist=twJv6SkdzAc" ></iframe>
+        </div> 
+            <div class="reel-con">
+                <nav>
+                    <img src="https://www.titan.co.in/on/demandware.static/-/Library-Sites-TitanSharedLibrary/default/dwb6d5816b/images/homepage/titan-logo.svg" alt="">
+                    <h3>Menu</h3>
+                </nav>
+               
+            </div>
+        </div>
+    </div>
+    
+    <div class="cursor"></div>
+    <div class="slider">
+        <div id="slider-top">
+            <h1>New Arrival.</h1>
+            <div class="swiperclass">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                      <div class="swiper-slide">
+                        <img src="https://www.titan.co.in/on/demandware.static/-/Library-Sites-TitanSharedLibrary/default/dwd005b872/images/TitanSBDesktop.jpg" object-position="center">
+                        <img src="https://www.titan.co.in/on/demandware.static/-/Library-Sites-TitanSharedLibrary/default/dw180665d0/images/Automatic.jpg" alt="">
+                        <img src="https://www.titan.co.in/on/demandware.static/-/Library-Sites-TitanSharedLibrary/default/dw76e65172/images/Chronograph.jpg" alt="">
+                        <img src="https://www.titan.co.in/on/demandware.static/-/Library-Sites-TitanSharedLibrary/default/dw55073896/images/homepage/Anne-K_desktop.jpg" alt="">
+                        <img src="https://images.unsplash.com/photo-1468421201266-ec88b2809284?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDZ8fHxlbnwwfHx8fHw%3D" alt="">
+                       
+                        
+                      </div>
+                      <div class="swiper-slide">
+                        <img src="https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Library-Sites-TitanSharedLibrary/default/dw63a5dd51/images/homepage/All_Banners/NA_ceramic_D-v1.jpg">
+                        <img src="https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw0814ec34/images/Titan/Catalog/1805QM04_1.jpg?sw=360&sh=360" alt="">
+                        <img src="https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw5487e70b/images/Titan/Catalog/2606WM08_1.jpg?sw=360&sh=360" alt="">
+                        <img src="https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Library-Sites-TitanSharedLibrary/default/dw407a267d/images/homepage/All_Banners/NA_PowerPearls_D-v1.jpg" alt="">
+                        <img src="https://images.unsplash.com/photo-1468421201266-ec88b2809284?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDZ8fHxlbnwwfHx8fHw%3D" alt="">
+                       
+                        
+                                      
+                      </div>
+                    </div>
+
+                  </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cc"></div>
+    <div class="products">
+        <div class="child" id="child1">
+            <div class="img1"><img src="https://www.titan.co.in/on/demandware.static/-/Library-Sites-TitanSharedLibrary/default/dw4c3b0683/images/WorkwearWD.jpg" alt=""></div>
+            <div class="img2"> <img src="https://www.titan.co.in/on/demandware.static/-/Library-Sites-TitanSharedLibrary/default/dwc1b2e9d4/images/WorkwearNTD.jpg" alt=""></div>
+        </div>
+        <div class="child" id="child2">
+            <div class="img1"><img src="https://www.titan.co.in/on/demandware.static/-/Library-Sites-TitanSharedLibrary/default/dw7d7f4af8/images/RagaNTD.jpg" alt=""></div>
+            <div class="img2"> <img src="https://www.titan.co.in/on/demandware.static/-/Library-Sites-TitanSharedLibrary/default/dw49fff0b0/images/RagaWD.jpg" alt=""></div>
+        </div>
+        <div class="child" id="child3">
+            <div class="img1"><img src="https://www.titan.co.in/on/demandware.static/-/Library-Sites-TitanSharedLibrary/default/dwac86eb87/images/GrandWD.jpg" alt=""></div>
+            <div class="img2"> <img src="https://www.titan.co.in/on/demandware.static/-/Library-Sites-TitanSharedLibrary/default/dwc0a72efd/images/GrandmasterNATD.jpg" alt=""></div>
+        </div>
+        <div class="child" id="child4">
+            <div class="img1"><img src="https://www.titan.co.in/on/demandware.static/-/Library-Sites-TitanSharedLibrary/default/dw9c332f65/images/MaritimeTD.jpg" alt=""></div>
+            <div class="img2"> <img src="https://www.titan.co.in/on/demandware.static/-/Library-Sites-TitanSharedLibrary/default/dw32de8d0d/images/MaritimeWD.jpg" alt=""></div>
+        </div>
+    </div>
+
+    <div class="main">       
+      <div class="page5">
+          <h2>BEST SELLERS WATCHES PRICE LIST</h2>
+          <div class="box" data-image="https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw4743ffe5/images/Titan/Catalog/1828KM02_1.jpg?sw=360&sh=360">
+              <h3>Best Seller Watches</h3>
+              <h4>Prices(Rs)</h4>
+          </div>
+          <div class="box" data-image="https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw6c9df22a/images/Titan/Catalog/2656WM01_1.jpg?sw=800&sh=800">
+              <h3>Titan Women's Lagan Watch: Rose Gold Accents & Refined Eleganc</h3>
+              <h4>₹ 2,835</h4>
+          </div>
+          <div class="box" data-image="https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwcfb00132/images/Titan/Catalog/1806NM01_1.jpg?sw=800&sh=800">
+              <h3>Titan Men's Timeless Style Watch: Refined Black Dial and Metal Strap</h3>
+              <h4>₹ 3,995</h4>
+          </div>
+          <div class="box" data-image="https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw0814ec34/images/Titan/Catalog/1805QM04_1.jpg?sw=800&sh=800">
+              <h3>Titan Neo Splash Quartz Multifunction Black Dial Stainless Steel Strap Watch for Men</h3>
+              <h4>₹ 7,345</h4>
+          </div>
+          <div class="box" data-image="https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw1888ad40/images/Titan/Catalog/1805QM01_1.jpg?sw=800&sh=800">
+              <h3>Titan Neo Splash Blue Dial Quartz Multifunction Stainless Steel Strap watch for Men</h3>
+              <h4>₹ 7,995</h4>
+          </div>
+          <div class="box" data-image="https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw1e380d61/images/Titan/Catalog/2725WM01_1.jpg?sw=800&sh=800">
+              <h3>Titan Raga Rose Gold Dial Watch for Women</h3>
+              <h4> ₹ 3,995</h4>
+          </div>
+          <div class="box" data-image="https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dw35324f4c/images/Titan/Catalog/2608QM02_3.jpg?sw=800&sh=800">
+              <h3>Raga Women's Allure: Brown Dial with designer Metal Strap Watch</h3>
+              <h4>₹ 5,995</h4>
+          </div>
+          <div class="box" data-image="https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwf87788bb/images/Titan/Catalog/2656WL01_1.jpg?sw=800&sh=800">
+              <h3>Titan Women's Lagan Chic: Studded Brown Dial watch with & Elegant Hands</h3>
+              <h4>₹ 1,995</h4>
+          </div>
+      </div>
+  </div>
+  <div class="footer">
+    <div class="boxes" id="box1">
+     <h3>collections</h3>
+    </div>
+    <div class="boxes" id="box2">
+     <h3>customer service</h3>
+    </div>
+    <div class="boxes" id="box3">
+     <h3>contact us</h3>
+    </div>
+   
+ 
+    <div class="boxes" id="box4">
+     <h3>about titan</h3>
+    </div>
+     <h1><span>t</span><span>i</span><span>t</span><span>a</span><span>n</span><span></span></h1>
+   
+    </div>
+    <h1><span>t</span><span>i</span><span>t</span><span>a</span><span>n</span><span></span></h1>
+   </div>
+  </div>
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        gsap.to(".page2 h1",{
+            transform:"translateX(-150%)",
+            scrollTrigger:{
+                trigger:".page2 ",
+                scroller:"body",
+                markers:false,
+                start:"top 0%",
+                end:"top -250%",
+                scrub:2,
+                pin:true
+            }
+        })
+        
+        var swiper = new Swiper(".mySwiper", {
+            spaceBetween: 30,
+            loop:true,
+            centeredSlides: true,
+            autoplay: {
+              delay: 2500,
+              disableOnInteraction: false,
+            },
+            pagination: {
+              el: ".swiper-pagination",
+              clickable: true,
+            },
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+          });
+        
+        
+          var crsr = document.querySelector(".cursor")
+        var main = document.querySelector(".main")
+        document.addEventListener("mousemove",function(dets){
+            crsr.style.left = dets.x + 20+"px"
+            crsr.style.top = dets.y + 20+"px"
+        })
+        var boxes=document.querySelectorAll(".box");
+        boxes.forEach(function(elem){
+            elem.addEventListener("mouseenter",function(){
+                var att = elem.getAttribute("data-image")
+                crsr.style.width = "370px"
+                crsr.style.height = "270px"
+                crsr.style.borderRadius = "0"
+                crsr.style.backgroundImage = url(${att})
+            })
+            elem.addEventListener("mouseleave",function(){
+                elem.style.backgroundColor = "transparent"
+                crsr.style.width = "20px"
+                crsr.style.height = "20px"
+                crsr.style.borderRadius = "50%"
+                crsr.style.backgroundImage = none
+            })
+        })
+        
+        //cyrsr
+        var reelcon=document.querySelector(".reel-con");
+        var cursr=document.querySelector("#mouse-cur");
+        reelcon.addEventListener("mousemove",function(dets){
+          gsap.to(cursr,{
+            x:dets.x,
+            y:dets.y
+          })
+        
+        })
+        
+        
+        reelcon.addEventListener("mouseenter",function(dets){
+          gsap.to(cursr,{
+            transform:'translate(-50%,-50%) scale(1)'
+           
+          })
+          
+        
+        })
+        reelcon.addEventListener("mouseleave",function(dets){
+          gsap.to(cursr,{
+             transform:'translate(-50%,-50%) scale(0)'
+            
+          })
+        
+        })
+        reelcon.addEventListener("mouseenter",function(dets){
+          gsap.to(".cursor",{
+            scale:0,
+           
+          })
+        })
+        
+        reelcon.addEventListener("mouseleave",function(dets){
+          gsap.to(".cursor",{
+            scale:1,
+            
+          })
+        
+        })
+        //loader
+        var tl=gsap.timeline();
+        tl.from("#loader h3",{
+          x:40,
+          opacity:0,
+          duration:1,
+          stagger:0.3
+        })
+        tl.to("#loader h3",{
+          opacity:0,
+          x:-40,
+          stagger:0.3,
+          duration:1
+        })
+        tl.to("#loader",{
+          opacity:0
+        })
+        tl.to("#loader",{
+          display:"none"
+        })
+        tl.from(".reel-con h1 span",{
+          y:100,
+          opacity:0,
+          stagger:0.1
+        
+        })
+        
+        
+        
+        
+        
+        
+        
+        var products=document.querySelector(".products");
+        var cc=document.querySelector(".cc");
+        products.addEventListener("mousemove",function(dets){
+            gsap.to(cc,{
+                left:dets.x,
+                top:dets.y
+            })
+        })
+        products.addEventListener("mouseenter",function(){
+            gsap.to(cc,{
+                transform:'translate(-50%,-50%) scale(1)'
+            })
+        })
+        products.addEventListener("mouseenter",function(){
+          gsap.to(crsr,{
+              scale:0
+          })
+        })
+        
+        products.addEventListener("mouseleave",function(){
+          gsap.to(crsr,{
+              scale:1
+          })
+        })
+        products.addEventListener("mouseleave",function(){
+            gsap.to(cc,{
+                transform:'translate(-50%,-50%) scale(0)'
+            })
+        })
+        
+        
+        gsap.from(".footer h1 span",{
+          x:-100,
+          opacity:0,
+          stagger:.8,
+          delay:8,
+         
+        })
+        gsap.from(".footer .boxes h3",{
+          y:-80,
+          opacity:0,
+          scale:1,
+          stagger:0.8,
+          delay:8
+        })
+        
+        
+        
+        
+        
+        
+        
+    </script>
+</body>
+</html>
